@@ -215,7 +215,12 @@ function inject(resourceName, attrs, options) {
   }
 
   var name = definition.n;
-  var origOptions = options;
+  var origOptions = {};
+  if (DSUtils._o(options)) {
+    DSUtils.forEach(Object.getOwnPropertyNames(options), function (val, key) {
+      origOptions[key] = val;
+    });
+  }
   options = DSUtils._(definition, options);
 
   options.logFn('inject', attrs, options);
